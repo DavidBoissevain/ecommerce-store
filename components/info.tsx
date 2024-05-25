@@ -5,6 +5,7 @@ import Currency from "@/components/ui/currency";
 import { useEffect, useState } from "react";
 import Button from "@/components/ui/button";
 import { ShoppingCart } from "lucide-react";
+import useCart from "@/hooks/use-cart";
 
 interface InfoProps {
     data: Product;
@@ -14,14 +15,20 @@ const Info: React.FC<InfoProps> = ({
     data
 }) => {
 
-    const [isMounted, setIsMounted] = useState(false);
+    // const [isMounted, setIsMounted] = useState(false);
 
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
+    // useEffect(() => {
+    //     setIsMounted(true);
+    // }, []);
 
-    if (!isMounted) {
-        return null;
+    // if (!isMounted) {
+    //     return null;
+    // }
+
+    const cart = useCart();
+
+    const addToCart = () => {
+        cart.addItem(data);
     }
 
     return (
@@ -54,7 +61,7 @@ const Info: React.FC<InfoProps> = ({
                 </div>
             </div>
             <div className="mt-10 flex items-center gap-x-3">
-                <Button className="flex items-center gap-x-2">
+                <Button onClick={addToCart} className="flex items-center gap-x-2">
                     Add To Card
                     <ShoppingCart />
                 </Button>
